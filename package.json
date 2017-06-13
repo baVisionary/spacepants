@@ -1,0 +1,60 @@
+{
+  "name": "angularjs-gettingstarted",
+  "version": "1.0.0",
+  "description": "Ground Up AngularJS",
+  "scripts": {
+    "test": "karma start",
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Jesse Tomchak",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "angular": "^1.6.0",
+    "angular-animate": "^1.6.4",
+    "angular-ui-bootstrap": "^2.5.0",
+    "angular-ui-router": "^0.4.2",
+    "bootstrap": "^3.3.7",
+    "jeet": "^6.1.5",
+    "jquery": "^3.2.1",
+    "lodash": "^3.10.1",
+    "normalize.css": "^3.0.3",
+    "rupture": "^0.6.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.6.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^5.3.2",
+    "babel-preset-es2015": "^6.24.1",
+    "browser-sync": "^2.18.12",
+    "chai": "^3.1.0",
+    "css-loader": "^0.15.4",
+    "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
+    "gulp-todoist": "0.0.2",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.6.0",
+    "mocha": "^2.2.5",
+    "node-libs-browser": "^0.5.2",
+    "raw-loader": "^0.5.1",
+    "run-sequence": "^1.2.2",
+    "style-loader": "^0.12.3",
+    "stylus-loader": "^1.2.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^1.15.0",
+    "webpack-stream": "^2.3.0"
+  }
+}
