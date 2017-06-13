@@ -43,7 +43,7 @@ const postService = ($http, API) => {
     return post;
   } 
 
-  return {get, loadPosts, getPostById, loadOnePost};
+  return {allPosts, get, loadPosts, getPostById, loadOnePost};
 };
 
 postService.$inject = ['$http', 'API'];

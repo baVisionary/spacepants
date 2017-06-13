@@ -1,6 +1,9 @@
 <section class="blog-details">
   <div class="text-left">
-  <a ui-sref="blogs" type="button" class="btn btn-default btn-sm">Back</a>
+    <a ui-sref="blogs" type="button" class="btn btn-default btn-sm">All Blogs</a>
+    <button class="btn btn-default" ng-click="vm.previousPost()">Previous</button>
+    <button class="btn btn-default" ng-click="vm.nextPost()">Next</button>
+
   </div>
   <h3>{{ posts[0].title }}</h3>
   <div class="header">
@@ -10,8 +13,8 @@
     {{ vm.post.body }}
   </p>
   <footer class="navbar-default">
-  <div class="container-fluid">
-    <p class="text-left">Author: {{ vm.user.username }} IRL {{ vm.user.name }}</p>
-  </div>
-</footer>  
+    <div class="container-fluid">
+      <p class="text-left">Author: {{ vm.user.username }} IRL {{ vm.user.name }}</p>
+    </div>
+  </footer>
 </section>

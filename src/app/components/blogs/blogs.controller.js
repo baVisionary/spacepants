@@ -4,9 +4,10 @@ class BlogsController {
   constructor(PostService, $location, $state) {
     this.message = 'The latest from the blog!';
     this.PostService = PostService;
+
     this.PostService.get().then(() => {
       this.posts = this.PostService.loadPosts();
-      console.log(this.post);
+      console.log(this.posts);
     });
     this.$state = $state;
   }
