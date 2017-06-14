@@ -1,37 +1,59 @@
 import _ from 'lodash';
 
 class BlogsController {
-  constructor(PostService, $location, $state) {
+  constructor(PostService, $state) {
     this.message = 'The latest from the blog!';
+    this.firstPost = 0;
+    this.groupCount = 5;
+    this.paginationLabels();
     this.PostService = PostService;
-
-    this.PostService.get().then(() => {
-      this.posts = this.PostService.loadPosts();
-      console.log(this.posts);
-    });
     this.$state = $state;
+
+    console.log(this.PostService.allPosts.length);
+
+    if (this.PostService.allPosts.length == 0) {
+      this.PostService.get().then(() => {
+        this.PostService.allPosts = this.PostService.loadPosts();
+        console.log(this.PostService.allPosts);
+      });
+    }
   }
 
-  // getPosts() {
-  //   console.log("Requesting all posts")
-  //   this.PostService.get()
-  //     .then(() => {
-  //       this.posts = this.PostService.loadPosts();
-  //     });
-  // }
+  paginationLabels() {
+    var pageLabels = [];
+    pageLabels[0] = Math.max(this.firstPost - (2 * this.groupCount), 0);
+    for (var i = 1; i < 5; i++) {
+      pageLabels[i] = pageLabels[0] + (i * this.groupCount);
+    }
+    console.log(pageLabels);
+    this.pageLabels = pageLabels;
+  }
 
-//TODO: this method is called when a user selects a post from the homepage 
-//TODO: what we want is for them to be taken to a 'details' page with all the info from that post
-//TODO BONOUS: back button on page, not browser back to take them back to the full list
   onSelect(postId) {
-    this.postId = postId;
-    // console.log(this.postId);
-    // var post = this.posts.find(x => x.id == postId);
-    // console.log(post);
-    this.$state.go('blogs.detail', {postId: postId});
+    this.$state.go('blogs.detail', { postId: postId });
+  }
+
+  showNext() {
+    return (this.firstPost + this.groupCount) < this.PostService.allPosts.length;
+  }
+
+  showPrev() {
+    return this.firstPost >= this.groupCount;
+  }
+
+  prevPosts() {
+    if (this.showPrev()) {
+      this.firstPost -= this.groupCount;
+    }
+  }
+
+  nextPosts() {
+    if (this.showNext()) {
+      this.firstPost += this.groupCount;
+    }
   }
 }
 
-BlogsController.$inject = ['PostService', '$location', '$state'];
+BlogsController.$inject = ['PostService', '$state'];
 // could also just export the class up top as well
-export {BlogsController};
+export { BlogsController };

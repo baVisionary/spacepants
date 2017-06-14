@@ -1,13 +1,21 @@
 <section class="blog-details">
   <div class="text-left">
-    <a ui-sref="blogs" type="button" class="btn btn-default btn-sm">All Blogs</a>
-    <button class="btn btn-default" ng-click="vm.previousPost()">Previous</button>
-    <button class="btn btn-default" ng-click="vm.nextPost()">Next</button>
+    <a ui-sref="blogs" type="button" class="btn btn-default">All Blogs</a>
+
+    <nav aria-label="Post Navigation">
+      <ul class="pager">
+        <li class="previous" ng-if="vm.showPrev()">
+          <a ng-click="vm.prevPost()"><span aria-hidden="true">&larr;</span> Previous</a>
+        </li>
+        <li class="next" ng-if="vm.showNext()" >
+          <a ng-click="vm.nextPost()">Next <span aria-hidden="true">&rarr;</span></a>
+        </li>
+      </ul>
+    </nav>
 
   </div>
-  <h3>{{ posts[0].title }}</h3>
   <div class="header">
-    <h1>{{ vm.post.title }}</h1>
+    <h1>{{ vm.post.id }}. {{ vm.post.title }}</h1>
   </div>
   <p>
     {{ vm.post.body }}
