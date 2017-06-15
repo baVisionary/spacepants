@@ -5,7 +5,6 @@ class BlogsController {
     this.message = 'The latest from the blog!';
     this.firstPost = 0;
     this.groupCount = 5;
-    this.paginationLabels();
     this.PostService = PostService;
     this.$state = $state;
 
@@ -19,18 +18,26 @@ class BlogsController {
     }
   }
 
-  paginationLabels() {
-    var pageLabels = [];
-    pageLabels[0] = Math.max(this.firstPost - (2 * this.groupCount), 0);
-    for (var i = 1; i < 5; i++) {
-      pageLabels[i] = pageLabels[0] + (i * this.groupCount);
-    }
-    console.log(pageLabels);
-    this.pageLabels = pageLabels;
-  }
+  // paginationLabels() {
+  //   var pageLabels = [];
+  //   pageLabels[0] = Math.max(this.firstPost - (2 * this.groupCount), 0);
+  //   for (var i = 1; i < 5; i++) {
+  //     pageLabels[i] = pageLabels[0] + (i * this.groupCount);
+  //   }
+  //   console.log(pageLabels);
+  //   this.pageLabels = pageLabels;
+  // }
 
   onSelect(postId) {
     this.$state.go('blogs.detail', { postId: postId });
+  }
+
+  firstPosts() {
+    this.firstPost = 0;
+  }
+
+  lastPosts() {
+    this.firstPost = this.PostService.allPosts.length - (this.PostService.allPosts.length % this.groupCount) - this.groupCount;
   }
 
   showNext() {

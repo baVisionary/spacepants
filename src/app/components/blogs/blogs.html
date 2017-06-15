@@ -4,35 +4,33 @@
   </div>
   <nav aria-label="Post navigation">
     <ul class="pager">
-      <li class="previous">
-        <a ng-if="vm.showPrev()" ng-click="vm.prevPosts()"><span aria-hidden="true">&larr;</span> Previous</a>
+      <li class="previous" ng-class="vm.showPrev() ? '' : 'disabled'">
+        <a ng-click="vm.firstPosts()">First</a>
       </li>
-      <li class="next">
-        <a ng-if="vm.showNext()" ng-click="vm.nextPosts()">Next Posts <span aria-hidden="true">&rarr;</span></a>
+      <li ng-class="vm.showPrev() ? '' : 'disabled'" >
+        <a ng-click="vm.prevPosts()"><span aria-hidden="true">&larr;</span> Previous</a>
+      </li>
+      <li ng-class="vm.showNext() ? '' : 'disabled'" >
+        <a ng-click="vm.nextPosts()">Next Posts <span aria-hidden="true">&rarr;</span></a>
+      </li>
+      <li class="next" ng-class="vm.showNext() ? '' : 'disabled'">
+        <a ng-click="vm.lastPosts()">Last</a>
       </li>
     </ul>
   </nav>
-  <!--<nav aria-label="Blogs in groups">
-    <ul class="pagination">
-      <li ng-class="vm.showPrev() ? '' : 'disabled'" ng-click="vm.prevPosts()">
-        <span aria-hidden="true">&laquo;</span>
-      </li>
-      <li><a >1</a></li>
-      <li><a >2</a></li>
-      <li><a >3</a></li>
-      <li><a >4</a></li>
-      <li><a >5</a></li>
-      <li ng-class="vm.showNext() ? '' : 'disabled'" ng-click="vm.nextPosts()">
-        <span aria-hidden="true">&raquo;</span>
-      </li>
-    </ul>
+  <!--<nav class="panel">
+    <div class="btn-group btn-group-justified">
+      <div class="btn btn-default" ng-click="vm.firstPosts()">First</div>
+      <div class="btn btn-default" ng-class="vm.showPrev() ? '' : 'disabled'" ng-click="vm.prevPosts()"><span aria-hidden="true">&larr;</span> Previous</div>
+      <div class="btn btn-default" ng-class="vm.showNext() ? '' : 'disabled'" ng-click="vm.nextPosts()">Next Posts <span aria-hidden="true">&rarr;</span></div>
+      <div class="btn btn-default" ng-click="vm.lastPosts()">Last</div>
+    </div>
   </nav>-->
 
-  <ul class="list-group">
-    <li class="list-group-item btn btn-default" ng-repeat="post in vm.PostService.allPosts | limitTo:vm.groupCount:vm.firstPost"
-      ng-click="vm.onSelect(post.id)">
+  <div class="list-group">
+    <a class="list-group-item" ng-repeat="post in vm.PostService.allPosts | limitTo:vm.groupCount:vm.firstPost" ng-click="vm.onSelect(post.id)">
       {{ post.id }}. {{post.title}}
-    </li>
-  </ul>
+    </a>
+  </div>
 
 </section>

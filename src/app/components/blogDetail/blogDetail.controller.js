@@ -6,6 +6,7 @@ class BlogDetailController {
     this.UserService = UserService;
     this.post = {};
     this.lastUserId = 0;
+    this.$state = $state;
 
     this.postId = $state.params.postId;
 
@@ -49,9 +50,9 @@ class BlogDetailController {
 
   nextPost() {
     console.log(`next ${this.postId} last ${this.PostService.allPosts.length}`)
-    if (this.postId < this.PostService.allPosts.length) {
-      this.postId++;
-      this.loadDetails(this.postId);
+    if (this.postId < this.PostService.allPosts.length) {  
+      this.postId++; 
+      this.$state.go('blogs.detail', { postId: this.postId });
     }
   }
 
@@ -65,7 +66,7 @@ class BlogDetailController {
 
     if (this.postId > 1) {
       this.postId--;
-      this.loadDetails(this.postId);
+      this.$state.go('blogs.detail', { postId: this.postId });
     }
   }
 
