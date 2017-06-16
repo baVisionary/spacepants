@@ -1,17 +1,29 @@
 <section class="blog-details">
-  <div class="text-left">
-  <a ui-sref="blogs" type="button" class="btn btn-default btn-sm">Back</a>
+  <nav aria-label="Post Navigation">
+    <div>
+      <a ui-sref="blogs" class="btn btn-default">Blog Posts</a>
+    </div>
+    <ul class="pager">
+      <li ng-class="vm.showPrev() ? '' : 'disabled'" >
+        <a ng-click="vm.prevPost()"><span aria-hidden="true">&larr;</span> Previous</a>
+      </li>
+      <li ng-class="vm.showNext() ? '' : 'disabled'" >
+        <a ng-click="vm.nextPost()">Next <span aria-hidden="true">&rarr;</span></a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="panel panel-info">
+    <div class="panel-heading ">
+      <div class="panel-title">
+        <h3><span class="label label-primary">{{ vm.post.id }}.</span><span class="capitalize"> {{ vm.post.title }}</span></h3>
+      </div>
+    </div>
+    <div class="panel-body">
+      {{ vm.post.body }}
+    </div>
+    <div class="panel-footer">
+      <p class="text-left">Author: {{ vm.user.username }} IRL {{ vm.user.name }}</p>
+    </div>
   </div>
-  <h3>{{ posts[0].title }}</h3>
-  <div class="header">
-    <h1>{{ vm.post.title }}</h1>
-  </div>
-  <p>
-    {{ vm.post.body }}
-  </p>
-  <footer class="navbar-default">
-  <div class="container-fluid">
-    <p class="text-left">Author: {{ vm.user.username }} IRL {{ vm.user.name }}</p>
-  </div>
-</footer>  
 </section>

@@ -2,11 +2,34 @@
   <div class="header">
     <h1>{{ vm.message }}</h1>
   </div>
-
-    <ul class="list-group">
-      <li class="list-group-item btn btn-default" ng-repeat="post in vm.posts | limitTo:10" 
-      ng-click="vm.onSelect(post.id)">
-      {{post.title}}
-    </li>
+  <nav aria-label="Post navigation">
+    <ul class="pager">
+      <li class="previous" ng-class="vm.showPrev() ? '' : 'disabled'">
+        <a ng-click="vm.firstPosts()">First {{ vm.PostService.groupCount }}</a>
+      </li>
+      <li ng-class="vm.showPrev() ? '' : 'disabled'" >
+        <a ng-click="vm.prevPosts()"><span aria-hidden="true">&larr;</span> Previous</a>
+      </li>
+      <li ng-class="vm.showNext() ? '' : 'disabled'" >
+        <a ng-click="vm.nextPosts()">Next <span aria-hidden="true">&rarr;</span></a>
+      </li>
+      <li class="next" ng-class="vm.showNext() ? '' : 'disabled'">
+        <a ng-click="vm.lastPosts()">Last {{ vm.PostService.groupCount }}</a>
+      </li>
     </ul>
+  </nav>
+  <!--<nav class="panel">
+    <div class="btn-group btn-group-justified">
+      <div class="btn btn-default" ng-click="vm.firstPosts()">First</div>
+      <div class="btn btn-default" ng-class="vm.showPrev() ? '' : 'disabled'" ng-click="vm.prevPosts()"><span aria-hidden="true">&larr;</span> Previous</div>
+      <div class="btn btn-default" ng-class="vm.showNext() ? '' : 'disabled'" ng-click="vm.nextPosts()">Next Posts <span aria-hidden="true">&rarr;</span></div>
+      <div class="btn btn-default" ng-click="vm.lastPosts()">Last</div>
+    </div>
+  </nav>-->
+
+  <div class="list-group">
+    <a class="list-group-item" ng-repeat="post in vm.PostService.allPosts | limitTo:vm.PostService.groupCount:vm.PostService.firstPost" ng-click="vm.onSelect(post.id)">
+      <span class="label label-primary">{{ post.id }}.</span><span class="capitalize"> {{ post.title }}</span></a>
+  </div>
+
 </section>

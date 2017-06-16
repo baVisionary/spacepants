@@ -2,25 +2,86 @@ import _ from 'lodash';
 
 class BlogDetailController {
   constructor(PostService, UserService, $state) {
-    // console.log($state);
     this.PostService = PostService;
+    this.UserService = UserService;
+    this.post = {};
+    this.lastUserId = 0;
+    this.$state = $state;
+
     this.postId = $state.params.postId;
 
-    this.PostService.getPostById($state.params.postId).then(() => {
-      this.post = this.PostService.loadOnePost();
-      console.log(this.post);
-    });
-  
-    this.UserService = UserService;
-    this.UserService.getUser(this.postId).then((data) => {
-      this.user = this.UserService.loadUser();
-      console.log(this.user);
-    });
+    this.loadDetails(this.postId);
   }
-  
+
+  loadDetails(postId) {
+    if (this.PostService.allPosts.length > 0) {
+      this.post = this.PostService.allPosts.find(x => x.id == postId);
+      this.loadUserDetails(this.post.userId);
+    } else {
+      this.PostService.getPostById(postId).then(() => {
+        this.post = this.PostService.loadOnePost();
+        this.loadUserDetails(this.post.userId);
+      });
+      this.PostService.get().then(() => {
+        this.PostService.allPosts = this.PostService.loadPosts();
+      });
+    }
+  }
+
+  loadUserDetails(userId) {
+    console.log(`lastUserId: ${this.lastUserId} userId: ${userId}`)
+    if (userId != this.lastUserId) {
+      this.UserService.getUser(userId).then(() => {
+        console.log('UserService: loading user')
+        this.user = this.UserService.loadUser();
+        this.lastUserId = this.post.userId;
+      });
+    }
+  }
+
+  onReturnBlogs(postId) {
+    this.PostService.firstPost = postId - (postId % this.PostService.groupCount);
+    console.log(`firstPost: ${this.PostService.firstPost}`)
+    this.$state.go('blogs');
+  }
+
+  // support a next button on the UI
+  showNext() {
+    return this.postId < this.PostService.allPosts.length;
+  }
+
+  nextPost() {
+    // console.log(`next ${this.postId} last ${this.PostService.allPosts.length}`)
+    if (this.postId < this.PostService.allPosts.length) {
+      if (this.postId % this.PostService.groupCount == 0) {
+        this.PostService.firstPost = this.postId;
+      }
+      this.postId++;
+      console.log(`firstPost: ${this.PostService.firstPost} postId: ${this.postId}`)
+      this.$state.go('blogs.detail', { postId: this.postId });
+    }
+  }
+
+  // support previous button on the UI
+  showPrev() {
+    return this.postId > 1;
+  }
+
+  prevPost() {
+    // console.log(`prev ${this.postId}`)
+    if (this.postId > 1) {
+      this.postId--;
+      if (this.postId % this.PostService.groupCount == 0) {
+        this.PostService.firstPost = this.postId - this.PostService.groupCount;
+      }
+      console.log(`firstPost: ${this.PostService.firstPost} postId: ${this.postId}`)
+      this.$state.go('blogs.detail', { postId: this.postId });
+    }
+  }
+
 }
 
 BlogDetailController.$inject = ['PostService', 'UserService', '$state'];
 
 // could also just export the class up top as well
-export {BlogDetailController};
+export { BlogDetailController };

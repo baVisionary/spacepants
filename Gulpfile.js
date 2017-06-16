@@ -3,6 +3,7 @@ var sync    = require('run-sequence');
 var browser = require('browser-sync');
 var webpack = require('webpack-stream');
 var todo    = require('gulp-todoist');
+var minify  = require('gulp-minify');
 
 /*
 map of paths for using with the tasks below
@@ -11,7 +12,7 @@ var paths = {
   entry: 'src/app/app.js',
   app: ['src/app/**/*.{js,css,html}', 'src/styles/**/*.css'],
   js: 'src/app/**/*!(.spec.js).js',
-  styl: ['src/app/**/*.css', 'src/style/**/*.css'],
+  style: ['src/app/**/*.css', 'src/style/**/*.css'],
   toCopy: ['src/index.html'],
   html: ['src/index.html', 'src/app/**/*.html'],
   dest: 'dist'
@@ -26,6 +27,7 @@ gulp.task('build', ['todo'], function() {
   return gulp.src(paths.entry)
     .pipe(webpack(require('./webpack.config')))
     .pipe(gulp.dest(paths.dest));
+    
 });
 
 gulp.task('serve', function() {
