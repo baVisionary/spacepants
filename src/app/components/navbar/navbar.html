@@ -1,6 +1,23 @@
-<header>
-  <ul class="nav nav-pills">
-    <li role="presentation" ng-class="{ active: vm.isActive('/')}"><a ui-sref="home">ngHome</a></li>
-    <li role="presentation" ng-class="{ active: vm.isActive('/blogs')}"><a ui-sref="blogs">blog</a></li>
-  </ul>
+<header class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <ul class="nav nav-pills">
+      <li role="presentation" class="visible-xs-block dropdown">
+        <a class="dropdown-toggle" ng-click="vm.toggleDropdown()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div class="hamburger"><div></div></div>
+        </a>
+        <ul class="dropdown-menu">
+          <li role="presentation" ng-class="{ active: vm.isActive('/')}"><a ui-sref="home">ngHome</a></li>
+          <li role="presentation" ng-class="{ active: vm.isActive('/blogs')}"><a ui-sref="blogs">blog</a></li>
+          <li role="presentation"><a>clogs</a></li>
+          <li role="presentation"><a>why?</a></li>
+          <li role="presentation"><a class="bg-success">spacepants</a></li>
+        </ul>
+      </li>
+      <li role="presentation" class="hidden-xs" ng-class="{ active: vm.isActive('/')}"><a ui-sref="home">ngHome</a></li>
+      <li role="presentation" class="hidden-xs" ng-class="{ active: vm.isActive('/blogs')}"><a ui-sref="blogs">blog</a></li>
+      <li role="presentation" class="hidden-xs"><a>clogs</a></li>
+      <li role="presentation" class="hidden-xs"><a>why?</a></li>
+      <li role="presentation" class="hidden-xs navbar-right"><a class="bg-success">spacepants</a></li>
+    </ul>
+  </div>
 </header>

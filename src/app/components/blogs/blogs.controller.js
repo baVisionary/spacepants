@@ -3,60 +3,54 @@ import _ from 'lodash';
 class BlogsController {
   constructor(PostService, $state) {
     this.message = 'The latest from the blog!';
-    this.firstPost = 0;
-    this.groupCount = 5;
     this.PostService = PostService;
-    this.$state = $state;
+    this.PostService.firstPost = this.PostService.firstPost || 0;
+    this.PostService.groupCount = 10;
+    console.log(`firstPost: ${this.PostService.firstPost}`);
 
-    console.log(this.PostService.allPosts.length);
+    this.$state = $state;
+    $('li.dropdown').removeClass('open');
+    $('.pager li').removeClass('disabled');
+
+    console.log(`allPosts.length: ${this.PostService.allPosts.length}`);
 
     if (this.PostService.allPosts.length == 0) {
       this.PostService.get().then(() => {
         this.PostService.allPosts = this.PostService.loadPosts();
-        console.log(this.PostService.allPosts);
+        // console.log(this.PostService.allPosts);
       });
     }
   }
-
-  // paginationLabels() {
-  //   var pageLabels = [];
-  //   pageLabels[0] = Math.max(this.firstPost - (2 * this.groupCount), 0);
-  //   for (var i = 1; i < 5; i++) {
-  //     pageLabels[i] = pageLabels[0] + (i * this.groupCount);
-  //   }
-  //   console.log(pageLabels);
-  //   this.pageLabels = pageLabels;
-  // }
 
   onSelect(postId) {
     this.$state.go('blogs.detail', { postId: postId });
   }
 
   firstPosts() {
-    this.firstPost = 0;
+    this.PostService.firstPost = 0;
   }
 
   lastPosts() {
-    this.firstPost = this.PostService.allPosts.length - (this.PostService.allPosts.length % this.groupCount) - this.groupCount;
+    this.PostService.firstPost = this.PostService.allPosts.length - (this.PostService.allPosts.length % this.PostService.groupCount) - this.PostService.groupCount;
   }
 
   showNext() {
-    return (this.firstPost + this.groupCount) < this.PostService.allPosts.length;
+    return (this.PostService.firstPost + this.PostService.groupCount) < this.PostService.allPosts.length;
   }
 
   showPrev() {
-    return this.firstPost >= this.groupCount;
+    return this.PostService.firstPost >= this.PostService.groupCount;
   }
 
   prevPosts() {
     if (this.showPrev()) {
-      this.firstPost -= this.groupCount;
+      this.PostService.firstPost -= this.PostService.groupCount;
     }
   }
 
   nextPosts() {
     if (this.showNext()) {
-      this.firstPost += this.groupCount;
+      this.PostService.firstPost += this.PostService.groupCount;
     }
   }
 }

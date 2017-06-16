@@ -7,6 +7,7 @@ class HomeController {
   // because of controllerAs.
   constructor() {
     this.title = 'Welcome to the blog!';
+    $('li.dropdown').removeClass('open');
   }
 }
 

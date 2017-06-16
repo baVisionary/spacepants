@@ -2,7 +2,10 @@ import _ from 'lodash';
 
 const postService = ($http, API) => {
   let allPosts = [];
+  let firstPost = 0;
   let post = {};
+  let groupCount = 10;
+
 
   // const init = () => {
   //   $http.get(`${API.url}/posts`)
@@ -18,7 +21,7 @@ const postService = ($http, API) => {
   const get = () => {
     console.log('GET all posts');
     return $http.get(`${API.url}/posts`)
-      .then(({data}) => {
+      .then(({ data }) => {
         allPosts = data.map(post => {
           return post;
         });
@@ -32,20 +35,20 @@ const postService = ($http, API) => {
 
   const getPostById = (postId) => {
     console.log('GET post by ID');
-      return $http.get(`${API.url}/posts/${postId}`)
-      .then(({data}) => {
+    return $http.get(`${API.url}/posts/${postId}`)
+      .then(({ data }) => {
         post = data;
       });
-  };  
-  
+  };
+
   const loadOnePost = () => {
     console.log('PostService: loading one post');
     return post;
-  } 
+  }
 
-  return {allPosts, get, loadPosts, getPostById, loadOnePost};
+  return { allPosts, get, loadPosts, getPostById, loadOnePost };
 };
 
 postService.$inject = ['$http', 'API'];
 
-export {postService};
+export { postService };

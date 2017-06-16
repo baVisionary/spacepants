@@ -36,11 +36,13 @@ class BlogDetailController {
         this.user = this.UserService.loadUser();
         this.lastUserId = this.post.userId;
       });
-    } 
+    }
   }
 
   onReturnBlogs(postId) {
-    
+    this.PostService.firstPost = postId - (postId % this.PostService.groupCount);
+    console.log(`firstPost: ${this.PostService.firstPost}`)
+    this.$state.go('blogs');
   }
 
   // support a next button on the UI
@@ -49,9 +51,13 @@ class BlogDetailController {
   }
 
   nextPost() {
-    console.log(`next ${this.postId} last ${this.PostService.allPosts.length}`)
-    if (this.postId < this.PostService.allPosts.length) {  
-      this.postId++; 
+    // console.log(`next ${this.postId} last ${this.PostService.allPosts.length}`)
+    if (this.postId < this.PostService.allPosts.length) {
+      if (this.postId % this.PostService.groupCount == 0) {
+        this.PostService.firstPost = this.postId;
+      }
+      this.postId++;
+      console.log(`firstPost: ${this.PostService.firstPost} postId: ${this.postId}`)
       this.$state.go('blogs.detail', { postId: this.postId });
     }
   }
@@ -62,10 +68,13 @@ class BlogDetailController {
   }
 
   prevPost() {
-    console.log(`prev ${this.postId}`)
-
+    // console.log(`prev ${this.postId}`)
     if (this.postId > 1) {
       this.postId--;
+      if (this.postId % this.PostService.groupCount == 0) {
+        this.PostService.firstPost = this.postId - this.PostService.groupCount;
+      }
+      console.log(`firstPost: ${this.PostService.firstPost} postId: ${this.postId}`)
       this.$state.go('blogs.detail', { postId: this.postId });
     }
   }

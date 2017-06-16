@@ -1,6 +1,11 @@
 /* styles in src/style directory are applied to the whole page */
+@media screen and (max-width: 480px) {
+   
+}
+
 body {
   color: black;
+  /*padding-top: 50px;*/
 }
 
 a {
@@ -10,7 +15,7 @@ a {
 main {
   padding: 1em;
   font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
+  /*text-align: center;*/
   margin-top: 50px;
   display: block;
 }
@@ -24,3 +29,32 @@ footer {
   display: none !important;
 }
 
+.hamburger {
+  position: relative;
+  display: block;
+  height: 20px;
+  width: 20px;
+  border-top: 4px solid #428bca;
+  border-bottom: 4px solid #428bca;
+}
+
+.hamburger div {
+  position: relative;
+  display: block;
+  top: 4px;
+  height: 0;
+  width: 20px;
+  border-top: 4px solid #428bca;
+}
+
+.hamburger:hover .hamburger div:hover {
+  border-color: #333;
+}
+
+.nav {
+  padding-top: 5px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
